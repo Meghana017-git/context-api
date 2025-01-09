@@ -9,12 +9,7 @@ const App = () => {
   return (
     <div>
       <UserProvider>
-        <Routes>
-          <Route path="/" element={<Login/>}/>
-          <Route path="/dashboard" element={
-            <ProtectedRoutes><Dashboard/></ProtectedRoutes>}
-          />
-        </Routes>
+       
       </UserProvider>
     </div>
   )
