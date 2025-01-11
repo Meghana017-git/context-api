@@ -1,12 +1,11 @@
 import React from 'react'
-import Counter from './features/counter/Counter'
+import Home from './components/Home'
 
 const App = () => {
   return (
-    <div>
-      <Counter/>
-      
-    </div>
+    <>
+    <Home/>
+    </>
   )
 }
 
