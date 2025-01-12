@@ -6,7 +6,10 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid2";
-import { Card } from "@mui/material";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { Card, styled } from "@mui/material";
 
 const gender = [
   {
@@ -29,92 +32,117 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+const CustomBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  minHeight: "100vh",
+  backgroundColor: theme.palette.primary.main,
+  color: "white",
+  padding: theme.spacing(3),
+  borderRadius: theme.shape.borderRadius,
+  "&:hover": {
+    backgroundColor: theme.palette.primary.dark,
+  },
+}));
+
 export default function FormPropsTextFields() {
   const [open, setOpen] = React.useState(false);
+  const [genderType, setGenderType] = React.useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleGenderChange = (event) => {
+    setGenderType(event.target.value);
+  };
+
   return (
     <div>
-        <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-        bgcolor: "background.default",
-        p: 3,
-      }}
-    >
-      <Card
-        sx={{
-          maxWidth: 300,
-          p: 3,
-          borderRadius: 3,
-          boxShadow: 3,
-        }}
-      >
-      <form>
-        <Grid container spacing={1}>
-          <Grid xs={12} sm={6} item>
-            <TextField
-              required
-              id="outlined-required"
-              label="Enter First Name"
-              defaultValue=""
-            />
-          </Grid>
-          <Grid xs={12} sm={6} item>
-            <TextField
-              required
-              id="outlined-required"
-              label="Enter Last Name"
-              defaultValue=""
-            />
-          </Grid>
-          <Grid xs={12} sm={6} item>
-            <TextField
-              required
-              id="outlined-required"
-              label="Enter Email"
-              defaultValue=""
-            />
-          </Grid>
-          <Grid xs={12} sm={6} item>
-            <TextField
-              id="outlined-select-gender"
-              select
-              label="Select"
-              defaultValue="EUR"
-              helperText="Please select your Gender"
-            >
-              {gender.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid xs={12} sm={6} item>
-          <Button variant="contained" onClick={handleOpen}>
-            Submit
-          </Button>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Register Success!
-              </Typography>
-            </Box>
-          </Modal>
-          </Grid>
-        </Grid>
-      </form>
-      </Card>
-      </Box>
+      <CustomBox>
+        <Card
+          sx={{
+            maxWidth: 300,
+            p: 3,
+            borderRadius: 3,
+            boxShadow: 3,
+          }}
+        >
+          <form>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sx={{ width: "100%" }}>
+                <FormControl fullWidth>
+                  <TextField
+                    required
+                    id="outlined-required"
+                    label="Enter First Name"
+                    className="text-field"
+                    defaultValue=""
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sx={{ width: "100%" }}>
+                <FormControl fullWidth>
+                  <TextField
+                    required
+                    id="outlined-required"
+                    label="Enter Last Name"
+                    className="text-field"
+                    defaultValue=""
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sx={{ width: "100%" }}>
+                <FormControl fullWidth>
+                  <TextField
+                    required
+                    id="outlined-required"
+                    label="Enter Email"
+                    className="text-field"
+                    defaultValue=""
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sx={{ width: "100%" }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-select-small-label">Gender</InputLabel>
+                  <Select
+                    labelId="demo-select-small-label"
+                    id="demo-select-small"
+                    value={genderType}
+                    label="Gender"
+                    onChange={handleGenderChange}
+                    fullWidth
+                  >
+                    {gender?.map((item) => (
+                      <MenuItem value={item.value}>{item.label}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Button variant="contained" onClick={handleOpen}>
+                Submit
+              </Button>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    Register Success!
+                  </Typography>
+                </Box>
+              </Modal>
+            </Grid>
+          </form>
+        </Card>
+      </CustomBox>
     </div>
   );
 }
